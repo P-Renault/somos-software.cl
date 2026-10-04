@@ -86,3 +86,9 @@ footer{border-top:1px solid #102538;padding:42px 0 28px;color:#6f8092;font-size:
   .hero-photo-screen{min-height:310px}
   .priceGrid{grid-template-columns:1fr}
 }
+
+/* V1.4 — remove obsolete empty hero artifact; commercial chips remain intact */
+.hero > .wrap.heroGrid > .device:not(.hero-photo-device),
+.heroGrid > .device:not(.hero-photo-device) {
+  display: none !important;
+}
