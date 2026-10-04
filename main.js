@@ -64,4 +64,38 @@ document.addEventListener("DOMContentLoaded", () => {
   if (footerYear) {
     footerYear.textContent = `© ${new Date().getFullYear()} Somos Software. Todos los derechos reservados.`;
   }
+
+  // Full-width hero carousel: three supplied 1536×576 images.
+  const carousel = document.querySelector(".hero-carousel");
+  if (carousel) {
+    const slides = [...carousel.querySelectorAll(".carousel-slide")];
+    const dots = [...carousel.querySelectorAll(".carousel-dot")];
+    const prev = carousel.querySelector(".carousel-control.prev");
+    const next = carousel.querySelector(".carousel-control.next");
+    let current = 0;
+    let timer;
+
+    const showSlide = index => {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === current));
+    };
+
+    const start = () => {
+      clearInterval(timer);
+      timer = setInterval(() => showSlide(current + 1), 6000);
+    };
+
+    prev?.addEventListener("click", () => { showSlide(current - 1); start(); });
+    next?.addEventListener("click", () => { showSlide(current + 1); start(); });
+    dots.forEach((dot, i) => dot.addEventListener("click", () => { showSlide(i); start(); }));
+
+    carousel.addEventListener("mouseenter", () => clearInterval(timer));
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", () => clearInterval(timer));
+    carousel.addEventListener("focusout", start);
+
+    showSlide(0);
+    start();
+  }
 });

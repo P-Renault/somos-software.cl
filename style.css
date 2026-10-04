@@ -92,3 +92,89 @@ footer{border-top:1px solid #102538;padding:42px 0 28px;color:#6f8092;font-size:
 .heroGrid > .device:not(.hero-photo-device) {
   display: none !important;
 }
+
+/* V1.5 — Full-width technology carousel */
+.hero-carousel{
+  position:relative;
+  width:100%;
+  margin:34px 0 0;
+  overflow:hidden;
+  background:#03080e;
+  border-top:1px solid rgba(21,91,130,.45);
+  border-bottom:1px solid rgba(21,91,130,.45);
+  box-shadow:0 18px 60px rgba(0,0,0,.22);
+}
+.carousel-track{
+  position:relative;
+  width:100%;
+  aspect-ratio:1536 / 576;
+  overflow:hidden;
+}
+.carousel-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .65s ease;
+}
+.carousel-slide.is-active{
+  opacity:1;
+  visibility:visible;
+}
+.carousel-slide img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.carousel-control{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:3;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(38,178,241,.65);
+  border-radius:50%;
+  background:rgba(3,10,18,.72);
+  color:#fff;
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+.carousel-control:hover{background:rgba(10,112,173,.7);border-color:#16c9ff}
+.carousel-control.prev{left:22px}
+.carousel-control.next{right:22px}
+.carousel-dots{
+  position:absolute;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:7px;
+  z-index:4;
+}
+.carousel-dot{
+  width:26px;
+  height:4px;
+  padding:0;
+  border:0;
+  border-radius:5px;
+  background:rgba(220,235,245,.42);
+  cursor:pointer;
+  transition:.25s ease;
+}
+.carousel-dot.is-active{width:42px;background:#16c9ff;box-shadow:0 0 12px rgba(22,201,255,.55)}
+.hero .chips{margin-top:16px}
+@media(max-width:560px){
+  .hero-carousel{margin-top:24px}
+  .carousel-track{aspect-ratio:1536 / 576}
+  .carousel-control{width:34px;height:34px;font-size:24px}
+  .carousel-control.prev{left:10px}
+  .carousel-control.next{right:10px}
+  .carousel-dots{bottom:8px}
+  .carousel-dot{width:18px;height:3px}
+  .carousel-dot.is-active{width:30px}
+}
