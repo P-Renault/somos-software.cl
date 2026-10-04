@@ -20,3 +20,28 @@ footer{border-top:1px solid #102538;padding:42px 0 28px;color:#6f8092;font-size:
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
 }
+
+/* V1.3 — identidad oficial, hero fotográfico y ajustes comerciales */
+.brand-logo{display:block;width:178px;height:auto;max-height:48px;object-fit:contain;object-position:left center}
+.hero-photo-wrap{position:relative;min-height:500px;border-radius:26px;overflow:hidden;border:1px solid #15577c;background:#06111c;box-shadow:0 0 70px rgba(0,145,255,.15)}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(.92) contrast(1.04) brightness(.82);transform:scale(1.01)}
+.hero-photo-wrap:before{content:"";position:absolute;inset:0;z-index:1;background:
+linear-gradient(90deg,#06111c 0%,rgba(6,17,28,.76) 7%,rgba(6,17,28,.18) 34%,rgba(6,17,28,.02) 60%,rgba(3,7,13,.34) 100%),
+linear-gradient(180deg,rgba(3,7,13,.12),rgba(3,7,13,.46));
+pointer-events:none}
+.hero-photo-wrap:after{content:"";position:absolute;inset:0;z-index:2;border-radius:26px;box-shadow:inset 0 0 75px 20px #06111c;pointer-events:none}
+.hero-photo-glow{position:absolute;inset:-25%;z-index:0;background:radial-gradient(circle,rgba(0,178,255,.25),transparent 52%);filter:blur(35px)}
+.hero-photo-caption{position:absolute;z-index:3;left:25px;bottom:22px;padding:10px 14px;border:1px solid rgba(22,201,255,.35);background:rgba(3,9,16,.68);backdrop-filter:blur(12px);border-radius:9px}
+.hero-photo-caption span{display:block;color:#fff;font-size:10px;font-weight:900;letter-spacing:1.5px}
+.hero-photo-caption small{color:#15bde9;font-size:9px}
+.section-casos-oculta{display:none!important}
+.contact-email{display:block;margin-top:12px;color:#8ca0b1;font-size:11px;text-align:right}
+@media(max-width:900px){
+ .brand-logo{width:150px}
+ .hero-photo-wrap{min-height:360px}
+}
+@media(max-width:560px){
+ .brand-logo{width:145px}
+ .hero-photo-wrap{min-height:300px}
+ .contact-email{text-align:left}
+}
