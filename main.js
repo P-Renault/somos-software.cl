@@ -94,8 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     carousel.addEventListener("mouseleave", start);
     carousel.addEventListener("focusin", () => clearInterval(timer));
     carousel.addEventListener("focusout", start);
-    carousel.addEventListener("carousel:pause", () => clearInterval(timer));
-    carousel.addEventListener("carousel:resume", start);
 
     showSlide(0);
     start();
@@ -103,56 +101,87 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// V2 motion + mobile navigation layer.
-document.addEventListener("DOMContentLoaded", () => {
-  const header = document.querySelector('.top');
-  const menuBtn = document.querySelector('.menu-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
+// V1.7 premium interaction layer
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const closeMenu = () => {
-    if (!menuBtn || !mobileMenu) return;
-    menuBtn.classList.remove('is-open');
-    menuBtn.setAttribute('aria-expanded','false');
-    mobileMenu.classList.remove('is-open');
-    mobileMenu.setAttribute('aria-hidden','true');
-  };
-  menuBtn?.addEventListener('click', () => {
-    const open = !mobileMenu.classList.contains('is-open');
-    menuBtn.classList.toggle('is-open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    mobileMenu.classList.toggle('is-open', open);
-    mobileMenu.setAttribute('aria-hidden', String(!open));
-  });
-  mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  // V1.8 cinematic typography: two deliberate motion languages.
+  // 1) Word-by-word reveal for the commercial/impact phrases.
+  // 2) Full phrase entering from the right for transition/process phrases.
+  const wordTargets = document.querySelectorAll('.motion-words');
+  const slideTargets = document.querySelectorAll('.motion-slide-right');
 
-  const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
-  window.addEventListener('scroll', syncHeader, {passive:true});
-  syncHeader();
+  const wrapWords = (el) => {
+    if (el.dataset.motionPrepared) return;
+    el.dataset.motionPrepared = '1';
 
-  const motionTargets = document.querySelectorAll(
-    '.reveal-on-scroll, .reveal-stagger > *, main section > .wrap > .sectionHead, main section > .wrap > .grid4, main section > .wrap > .solutionGrid, main section > .wrap > .priceGrid, main section > .wrap > .processGrid, main section > .wrap > .bridge, main section > .wrap > .final'
-  );
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-inview');
-          io.unobserve(entry.target);
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    let index = 0;
+    textNodes.forEach(node => {
+      if (!node.nodeValue.trim()) return;
+      const frag = document.createDocumentFragment();
+      node.nodeValue.split(/(\s+)/).forEach(part => {
+        if (/^\s+$/.test(part) || !part) {
+          frag.appendChild(document.createTextNode(part));
+          return;
         }
+        const word = document.createElement('span');
+        word.className = 'motion-word';
+        word.textContent = part;
+        word.style.setProperty('--word-index', index++);
+        frag.appendChild(word);
       });
-    }, {threshold:0.10, rootMargin:'0px 0px -8% 0px'});
-    motionTargets.forEach(el => io.observe(el));
-  } else motionTargets.forEach(el => el.classList.add('is-inview'));
+      node.parentNode.replaceChild(frag, node);
+    });
+    el.classList.add('motion-ready');
+  };
 
-  // Pause the hero carousel while it is off-screen; resume when visible.
-  const carousel = document.querySelector('.hero-carousel');
-  if (carousel && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
+  wordTargets.forEach(wrapWords);
+  slideTargets.forEach(el => el.classList.add('motion-ready'));
+
+  if (reduceMotion) {
+    [...wordTargets, ...slideTargets].forEach(el => el.classList.add('is-visible'));
+  } else if ('IntersectionObserver' in window) {
+    const motionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        carousel.dispatchEvent(new CustomEvent(entry.isIntersecting ? 'carousel:resume' : 'carousel:pause'));
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        motionObserver.unobserve(entry.target);
       });
-    }, {threshold:0.05});
-    observer.observe(carousel);
+    }, { threshold: 0.28, rootMargin: '0px 0px -8% 0px' });
+
+    [...wordTargets, ...slideTargets].forEach(el => motionObserver.observe(el));
+  } else {
+    [...wordTargets, ...slideTargets].forEach(el => el.classList.add('is-visible'));
   }
-});
+
+  // Contextual lighting follows the pointer on desktop.
+  if (!reduceMotion) {
+    document.querySelectorAll('.card,.solution,.price').forEach(card => {
+      card.addEventListener('pointermove', e => {
+        const r=card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${((e.clientX-r.left)/r.width)*100}%`);
+        card.style.setProperty('--my', `${((e.clientY-r.top)/r.height)*100}%`);
+      });
+      card.addEventListener('pointerleave', () => {card.style.setProperty('--mx','50%');card.style.setProperty('--my','50%');});
+    });
+  }
+
+  // Scroll narrative: discover → activate → process → advance.
+  const stages=[...document.querySelectorAll('.scroll-stage')];
+  const stageObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>entry.target.classList.toggle('stage-active',entry.isIntersecting));
+  },{threshold:.18});
+  stages.forEach(s=>stageObserver.observe(s));
+  const updateProgress=()=>{
+    stages.forEach(s=>{
+      const r=s.getBoundingClientRect(), h=window.innerHeight;
+      const p=Math.max(0,Math.min(1,(h-r.top)/(h+r.height)));
+      s.style.setProperty('--stage-progress',p.toFixed(3));
+    });
+  };
+  window.addEventListener('scroll',updateProgress,{passive:true}); updateProgress();
+})();
