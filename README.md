@@ -1,22 +1,12 @@
-# Somos Software · somosoftware.cl · V1.5
+# Somos Software · somosoftware.cl · V1.6
 
-## Hero + carrusel
-
-Se reemplazó el rectángulo visual inferior del hero por un carrusel de ancho completo.
-
-### Carrusel
-- 3 imágenes proporcionadas por el proyecto.
-- Archivos en raíz:
-  - `carousel-01.webp`
-  - `carousel-02.webp`
-  - `carousel-03.webp`
-- Dimensión original: `1536 × 576` (proporción 8:3).
-- Las imágenes se muestran completas, sin recorte.
-- Carrusel automático cada 6 segundos.
-- Flechas anterior/siguiente.
-- Indicadores inferiores.
-- Responsive manteniendo la proporción original.
-
-Las tarjetas `100% Chileno`, `Precios en CLP`, `Soporte real` y `Soluciones a medida` permanecen debajo del carrusel.
-
-El rectángulo anterior fue eliminado. `somosoftware.net` permanece intacto.
+- 8 tarjetas de propuesta de valor bajo el carrusel.
+- Video corporativo responsive 16:9.
+- Agenda Ya y Sistema POS: Próximamente.
+- Control Financiero: https://controlfinanciero.cl.
+- Oferta comercial ordenada por precio de menor a mayor.
+- Gestión de proyectos TI con valor según proyecto.
+- E-commerce / Tienda online desde $799.990.
+- Botones azules con WhatsApp y mensajes diferenciados.
+- Todos los archivos en la raíz.
+- `somosoftware.net` no se modifica.

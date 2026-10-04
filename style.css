@@ -178,3 +178,18 @@ footer{border-top:1px solid #102538;padding:42px 0 28px;color:#6f8092;font-size:
   .carousel-dot{width:18px;height:3px}
   .carousel-dot.is-active{width:30px}
 }
+
+/* V1.6 — propuesta de valor, video y oferta comercial */
+.chips-expanded{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chips-expanded .chip{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap}
+.video-section{padding-top:28px;padding-bottom:54px}
+.video-head{justify-content:center;text-align:center;margin-bottom:24px}
+.video-head h2{max-width:900px;margin-left:auto;margin-right:auto}
+.video-frame{width:min(75%,900px);margin:0 auto;border:1px solid #14537a;border-radius:20px;overflow:hidden;background:#02070d;box-shadow:0 20px 70px rgba(0,125,220,.16),0 0 0 1px rgba(22,201,255,.04)}
+.brand-video{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;background:#02070d}
+.coming-soon{display:inline-block;margin-top:18px;padding:5px 9px;border:1px solid #1d435b;border-radius:999px;color:#91a1b1;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.priceGrid{grid-template-columns:repeat(3,1fr)}
+.price-cta{display:inline-flex;align-items:center;justify-content:center;width:100%;margin-top:16px;padding:11px 14px;border-radius:9px;border:1px solid #168ee0;background:linear-gradient(135deg,#119bf0,#176dff);color:#fff;font-size:11px;font-weight:900;box-shadow:0 8px 24px rgba(12,130,255,.16);transition:transform .2s ease,filter .2s ease,box-shadow .2s ease}
+.price-cta:hover{transform:translateY(-1px);filter:brightness(1.08);box-shadow:0 12px 28px rgba(12,130,255,.24)}
+@media(max-width:900px){.chips-expanded{grid-template-columns:repeat(2,1fr)}.video-frame{width:100%}.priceGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.chips-expanded{grid-template-columns:repeat(2,1fr)}.chips-expanded .chip{font-size:10px;padding:9px 7px;white-space:normal}.video-frame{width:100%;border-radius:15px}.priceGrid{grid-template-columns:1fr}}
