@@ -1,24 +1,27 @@
 # Somos Software · somosoftware.cl · V1.3
 
-Actualización comercial y visual solicitada.
+Actualización visual y comercial.
 
 ## Archivos en raíz
 - `index.html`
 - `style.css`
 - `main.js`
-- `logo-oficial.png`
-- `hero-fundador.jpg`
+- `logo-somos-software.png`
+- `hero-somos-software.jpg`
 - `README.md`
 
 ## Cambios
 - Integración del logo oficial de Somos Software.
-- CTA principal “Conoce nuestras soluciones” apunta a `somosoftware.net`.
-- “Somos Agenda” reemplazado por “Agenda Ya”.
-- Nueva tarjeta “Gestión de proyectos TI”.
-- Sección “Casos de uso” oculta temporalmente, sin eliminar su contenido.
+- CTA principal `Conoce nuestras soluciones` → `https://somosoftware.net`.
+- Producto `Somos Agenda` renombrado a `Agenda Ya`.
+- Nueva tarjeta comercial: `Gestión de proyectos TI`.
+- Sección `Casos de uso` oculta temporalmente, conservando el código.
 - WhatsApp configurado a +56 9 4123 9698.
-- Correo configurado: teayudo@somossoftware.net.
-- Hero de escritorio reemplazado por la fotografía proporcionada, con degradado y tratamiento visual integrado.
-- `somosoftware.net` no fue modificado.
+- Correo configurado: `teayudo@somosoftware.net`.
+- Imagen de escritorio reemplazada por la fotografía proporcionada.
+- Degradado aplicado para integrarla visualmente con el diseño existente.
+- Arquitectura plana: todos los archivos en la raíz.
+- `somosoftware.net` no se modifica.
 
-Todos los archivos permanecen en el directorio raíz para facilitar la carga al repositorio.
+## Despliegue
+Subir todos los archivos directamente a la raíz del repositorio.
