@@ -94,8 +94,65 @@ document.addEventListener("DOMContentLoaded", () => {
     carousel.addEventListener("mouseleave", start);
     carousel.addEventListener("focusin", () => clearInterval(timer));
     carousel.addEventListener("focusout", start);
+    carousel.addEventListener("carousel:pause", () => clearInterval(timer));
+    carousel.addEventListener("carousel:resume", start);
 
     showSlide(0);
     start();
+  }
+});
+
+
+// V2 motion + mobile navigation layer.
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector('.top');
+  const menuBtn = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  const closeMenu = () => {
+    if (!menuBtn || !mobileMenu) return;
+    menuBtn.classList.remove('is-open');
+    menuBtn.setAttribute('aria-expanded','false');
+    mobileMenu.classList.remove('is-open');
+    mobileMenu.setAttribute('aria-hidden','true');
+  };
+  menuBtn?.addEventListener('click', () => {
+    const open = !mobileMenu.classList.contains('is-open');
+    menuBtn.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    mobileMenu.classList.toggle('is-open', open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+  });
+  mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  const syncHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+  window.addEventListener('scroll', syncHeader, {passive:true});
+  syncHeader();
+
+  const motionTargets = document.querySelectorAll(
+    '.reveal-on-scroll, .reveal-stagger > *, main section > .wrap > .sectionHead, main section > .wrap > .grid4, main section > .wrap > .solutionGrid, main section > .wrap > .priceGrid, main section > .wrap > .processGrid, main section > .wrap > .bridge, main section > .wrap > .final'
+  );
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-inview');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.10, rootMargin:'0px 0px -8% 0px'});
+    motionTargets.forEach(el => io.observe(el));
+  } else motionTargets.forEach(el => el.classList.add('is-inview'));
+
+  // Pause the hero carousel while it is off-screen; resume when visible.
+  const carousel = document.querySelector('.hero-carousel');
+  if (carousel && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        carousel.dispatchEvent(new CustomEvent(entry.isIntersecting ? 'carousel:resume' : 'carousel:pause'));
+      });
+    }, {threshold:0.05});
+    observer.observe(carousel);
   }
 });
