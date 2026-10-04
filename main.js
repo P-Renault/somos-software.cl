@@ -35,6 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", updateNav, { passive: true });
   updateNav();
 
+  // Entrada cinematográfica de la imagen principal: parte desde fuera de la pantalla y se estabiliza.
+  const heroMedia = document.querySelector(".hero-photo-device");
+  if (heroMedia) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      heroMedia.classList.add("hero-media-visible");
+    } else {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => heroMedia.classList.add("hero-media-visible"));
+      });
+    }
+  }
+
   // Animación de entrada discreta para bloques principales.
   const revealItems = document.querySelectorAll(
     ".card, .solution, .price, .case, .process, .bridge, .final"
@@ -148,10 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const motionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
+        // La frase se activa al llegar a su zona de lectura, no al cargar el sitio.
         entry.target.classList.add('is-visible');
         motionObserver.unobserve(entry.target);
       });
-    }, { threshold: 0.28, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -18% 0px' });
 
     [...wordTargets, ...slideTargets].forEach(el => motionObserver.observe(el));
   } else {
