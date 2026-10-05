@@ -1,4 +1,4 @@
-# Somos Software · somosoftware.cl · V1.6
+# Somos Software · somossoftware.cl · V1.6
 
 - 8 tarjetas de propuesta de valor bajo el carrusel.
 - Video corporativo responsive 16:9.
@@ -9,4 +9,13 @@
 - E-commerce / Tienda online desde $799.990.
 - Botones azules con WhatsApp y mensajes diferenciados.
 - Todos los archivos en la raíz.
-- `somosoftware.net` no se modifica.
+- `somossoftware.net` no se modifica.
+
+
+## Identidad oficial
+
+- Marca visual: **SOMOS SOFTWARE**.
+- Dominio corporativo: `somossoftware.cl`.
+- Dominio/plataforma: `somossoftware.net`.
+- URL de destino de la plataforma: `https://www.somossoftware.net`.
+- Correo oficial: `teayudo@somossoftware.net`.

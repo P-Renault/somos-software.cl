@@ -1,4 +1,4 @@
-// Somos Software · somosoftware.cl
+// Somos Software · somossoftware.cl
 // V1 — comportamiento comercial y UX, sin lógica de aplicaciones.
 
 document.addEventListener("DOMContentLoaded", () => {
