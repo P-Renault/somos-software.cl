@@ -1,21 +1,30 @@
-# Somos Software · somossoftware.cl · V1.6
+# SOMOS SOFTWARE · .CL · V2 SEO
 
-- 8 tarjetas de propuesta de valor bajo el carrusel.
-- Video corporativo responsive 16:9.
-- Agenda Ya y Sistema POS: Próximamente.
-- Control Financiero: https://controlfinanciero.cl.
-- Oferta comercial ordenada por precio de menor a mayor.
-- Gestión de proyectos TI con valor según proyecto.
-- E-commerce / Tienda online desde $799.990.
-- Botones azules con WhatsApp y mensajes diferenciados.
-- Todos los archivos en la raíz.
-- `somossoftware.net` no se modifica.
+Versión preparada para publicación en `https://somossoftware.cl/`.
 
+## Alcance
+- SEO técnico: title, description, canonical, robots, Open Graph, Twitter Card, favicon y JSON-LD.
+- `robots.txt` y `sitemap.xml` en la raíz.
+- `CNAME` con `somossoftware.cl` para GitHub Pages publicado desde rama.
+- Se conserva la identidad visual, animaciones y arquitectura comercial.
+- Se mantiene `somossoftware.net` como plataforma operativa; no se rediseña.
+- Se integra una sección de contenido educativo en `.CL` y seis artículos indexables con metadatos y datos estructurados.
+- `Control Financiero` continúa apuntando a `https://controlfinanciero.cl`.
+- Redes sociales: Facebook `https://www.facebook.com/share/1E1KdWDYBE/` e Instagram `https://www.instagram.com/somos.software/`.
 
-## Identidad oficial
+## Artículos
+1. Desarrollo web para PYMEs en Chile.
+2. Costo de un sistema a medida en Chile.
+3. Automatización de procesos para PYMEs.
+4. Tienda online / WooCommerce para PYMEs.
+5. Cómo elegir software para un negocio.
+6. Transformación digital para emprendedores.
 
-- Marca visual: **SOMOS SOFTWARE**.
-- Dominio corporativo: `somossoftware.cl`.
-- Dominio/plataforma: `somossoftware.net`.
-- URL de destino de la plataforma: `https://www.somossoftware.net`.
-- Correo oficial: `teayudo@somossoftware.net`.
+## Despliegue
+1. Publicar el contenido en la rama de GitHub Pages.
+2. Configurar `somossoftware.cl` en Settings → Pages → Custom domain.
+3. En DNS, apuntar el dominio apex a GitHub Pages y `www` con CNAME a `p-renault.github.io` si también se desea la variante `www`.
+4. Activar `Enforce HTTPS` cuando GitHub lo habilite.
+5. Verificar en Search Console el dominio final y enviar `https://somossoftware.cl/sitemap.xml`.
+
+La configuración DNS no se ejecuta desde este paquete: debe hacerse en el proveedor del dominio.
