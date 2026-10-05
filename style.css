@@ -431,3 +431,98 @@ footer{border-top:1px solid #102538;padding:42px 0 28px;color:#6f8092;font-size:
 .article-footer a{color:#16c9ff;text-decoration:none;font-weight:900;font-size:12px}
 @media(max-width:900px){.article-grid{grid-template-columns:repeat(2,1fr)}.content-cta{align-items:flex-start;flex-direction:column}.article-shell{padding-top:88px}}
 @media(max-width:560px){.article-grid{grid-template-columns:1fr}.article-card{min-height:245px}.content-section{padding:66px 0 72px}.article-shell{width:min(100% - 28px,920px);padding:74px 0 65px}.article-shell h1{font-size:42px;letter-spacing:-2px}.article-shell .article-intro{font-size:16px}.article-body p,.article-body li{font-size:15px}.article-body h2{font-size:26px}.article-footer{align-items:flex-start;flex-direction:column}}
+
+
+/* V2.1 — mobile ecosystem bridge: four horizontal positions, desktop unchanged.
+   Mobile order: 01 .CL → 02 Facebook → 03 Instagram → 04 .NET. */
+@media(max-width:560px){
+  .network-bridge{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:6px;
+    padding:12px 8px;
+    overflow:visible;
+    text-align:center;
+  }
+
+  /* The three legacy arrow grid items are decorative on mobile; the arrows are
+     rendered between the four real nodes so the four nodes occupy the four columns. */
+  .network-arrow{display:none}
+
+  .network-brand,
+  .facebook-node,
+  .instagram-node,
+  .network-net{
+    min-width:0;
+    width:100%;
+    box-sizing:border-box;
+    position:relative;
+  }
+
+  .network-brand,
+  .network-net{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:64px;
+    padding:7px 4px;
+  }
+
+  .network-brand strong,
+  .network-net strong{
+    display:block;
+    max-width:100%;
+    font-size:8px;
+    line-height:1.12;
+    letter-spacing:-.15px;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+
+  .network-brand p,
+  .network-net p{display:none}
+
+  .social-node{
+    min-height:64px;
+    padding:6px 3px;
+    border-radius:10px;
+    gap:5px;
+  }
+
+  .social-node strong{
+    font-size:7px;
+    line-height:1.1;
+    white-space:nowrap;
+  }
+
+  .social-icon{
+    width:27px;
+    height:27px;
+    font-size:17px;
+    flex:0 0 auto;
+  }
+
+  /* Visual separators between the four positions. */
+  .network-brand::after,
+  .facebook-node::after,
+  .instagram-node::after{
+    content:"→";
+    position:absolute;
+    right:-8px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#16c9ff;
+    font-size:14px;
+    line-height:1;
+    font-weight:900;
+    text-shadow:0 0 10px rgba(22,201,255,.45);
+    pointer-events:none;
+    z-index:5;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .network-brand::after,
+  .facebook-node::after,
+  .instagram-node::after{animation:none}
+}
