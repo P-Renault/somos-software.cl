@@ -71,6 +71,52 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Modales accesibles del catálogo y la campaña Somos Impulsa.
+  const modalConfigs = [
+    { modal: document.getElementById("products-catalog-modal"), trigger: document.getElementById("open-products-catalog"), closeSelector: "[data-close-catalog]", closeLinkSelector: "[data-close-catalog-link]" },
+    { modal: document.getElementById("impulsa-campaign-modal"), trigger: document.getElementById("open-impulsa-modal"), closeSelector: "[data-close-impulsa]", closeLinkSelector: "[data-close-impulsa-link]" }
+  ];
+  let activeModal = null;
+  let modalPreviousFocus = null;
+
+  const closeActiveModal = () => {
+    if (!activeModal || activeModal.hidden) return;
+    activeModal.hidden = true;
+    activeModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("catalog-open");
+    activeModal = null;
+    if (modalPreviousFocus && typeof modalPreviousFocus.focus === "function") modalPreviousFocus.focus();
+  };
+
+  modalConfigs.forEach(config => {
+    const { modal, trigger, closeSelector, closeLinkSelector } = config;
+    if (!modal || !trigger) return;
+    trigger.addEventListener("click", () => {
+      if (activeModal && activeModal !== modal) closeActiveModal();
+      modalPreviousFocus = document.activeElement;
+      activeModal = modal;
+      modal.hidden = false;
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("catalog-open");
+      const closeButton = modal.querySelector(".catalog-close");
+      if (closeButton) closeButton.focus();
+    });
+    modal.querySelectorAll(closeSelector).forEach(button => button.addEventListener("click", closeActiveModal));
+    if (closeLinkSelector) modal.querySelectorAll(closeLinkSelector).forEach(link => link.addEventListener("click", closeActiveModal));
+  });
+
+  document.addEventListener("keydown", event => {
+    if (!activeModal || activeModal.hidden) return;
+    if (event.key === "Escape") { closeActiveModal(); return; }
+    if (event.key !== "Tab") return;
+    const focusable = [...activeModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+
   // Año automático del footer.
   const footerYear = document.querySelector(".copy span");
   if (footerYear) {
